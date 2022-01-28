@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { userUrl } from '../helpers/UserData';
 
 export default class Registro extends Component {
@@ -15,7 +16,7 @@ export default class Registro extends Component {
   }
 
   handleChange = (e) => {
-    this.state({
+    this.setState({
       form: {
         ...this.state.form,
         [e.target.name]: e.target.value
@@ -26,7 +27,7 @@ export default class Registro extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-
+    this.envioData()
   }
 
 
@@ -39,24 +40,70 @@ export default class Registro extends Component {
   render() {
     return (
       <div>
-        <form>
-          <input
+        <Form onSubmit={this.handleSubmit}>
+          <H2>Formulario de Registro</H2>
+          <br /><br />
+          <Label >Email</Label>
+          <Input
+            required
             type="email"
             placeholder="Email"
             name="email"
-            value={this.state.form.email}
-            onChange={this.handleChangehandleChange}
-          />
-
-          <input
-            type="pasword"
-            name="password"
-            placeholder="Contraseña"
-            value={this.state.form.password}
             onChange={this.handleChange}
           />
-        </form>
+          <Label >Contrseña</Label>
+          <Input
+            required
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            onChange={this.handleChange}
+          />
+          <Button type="submit">Registrarme</Button>
+        </Form>
       </div>
     );
   }
 }
+
+const Form = styled.div`
+  background-color: black;
+  width: 400px;
+  height: 625px;
+  color: white;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 50px 50px;
+  border-radius: 20px;
+
+`
+
+const Label = styled.label`
+  margin: 0;
+  padding: 0;
+  display: block;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top: 5px;
+  border-radius: 5px;
+  padding: 9px;
+`;
+
+const H2 = styled.h2`
+  text-align: center;
+`;
+const Button = styled.button`
+  background-color: tomato;
+  margin: auto;
+  display: block;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 5px;
+`
+

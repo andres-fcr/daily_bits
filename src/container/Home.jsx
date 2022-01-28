@@ -1,5 +1,4 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -22,7 +21,6 @@ const Home = () => {
           <img src="./Navegation.svg" alt="" />
         </Link>
       </div>
-      <Container />
     </div>
   );
 };

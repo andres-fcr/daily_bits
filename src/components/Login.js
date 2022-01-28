@@ -7,76 +7,97 @@ import { userUrl } from "../helpers/UserData";
 
 export default class Login extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            form: {
-                email: '',
-                password: ''
-            }
-        }
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        email: 'a@gmail.com',
+        password: 'asdad'
+      },
+      peticion: {}
     }
-    handleChange = (e) => {
-        this.setState({
-            form: {
-                ...this.state.form,
-                [e.target.name]: e.target.value
-            }
-        })
-        console.log(this.state.form);
-    }
-
-    iniciarSesion = () => {
-        axios.get(userUrl, { params: { email: this.state.form.email, password: this.state.form.password } })
-        .then(response=>{
-          console.log(response);
-        })
-        .then(response=>{
-            if(response.length>0){
-
-            }else{
-                alert("El usuario o contraseña no son correctos")
-            }
-        })
-        .catch(error=>{
-          console.log(error);
-        })
+  }
+  handleChange = (e) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.value
       }
+    })
+    console.log(this.state.form);
+  }
 
-    render() {
-        return (
-            <Form >
-                <Img src="./Logo.svg" alt="" />
-                <br />
-                <br />
-                <H3>Iniciar sesion</H3> <br />
-                <Label for="">Correo Electronico</Label>
-                <Input
-                    type="email"
-                    placeholder="ingrese correo"
-                    name="email"
-                    onChange={this.handleChange}
-                />
-                <hr />
-                <Label for="">Contraseña</Label>
-                <Input
-                    type="password"
-                    placeholder="ingrese contraseña"
-                    name="password"
-                    onChange={this.handleChange}
-                />
-                <br />
-                <button type="submit" onClick={()=>this.iniciarSesion()}>Ingresar</button>
-                <H2>
-                </H2>
-                <P>
-                    ¿Aun no tienes una cuenta?<Link to="/registro">Inscribirse</Link>
-                </P>
-            </Form>
-        );
+  iniciarSesion = () => {
+    axios.get(userUrl, { params: { email: this.state.form.email, password: this.state.form.password } })
+      .then(response => {
+        console.log(response.data.length);
+        // this.setState({peticion: response.data})
+      })
+      .then(response=>{
+        if (response.data.length < 1) {
+          alert("inicio sesion")
+        } else {
+          alert("El usuario o contraseña no son correctos")
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      this.alerta()
+  }
+
+  alerta = () => {
+    if (this.state.peticion.length < 1) {
+      alert("inicio sesion")
+    } else {
+      alert("El usuario o contraseña no son correctos")
     }
+    console.log(this.state.peticion);
+  }
+
+
+render() {
+  return (
+    <Form >
+      <Img src="./Logo.svg" alt="" />
+      <br />
+      <br />
+      <H3>Iniciar sesion</H3> <br />
+      <Label for="">Correo Electronico</Label>
+      <Input
+        type="email"
+        placeholder="ingrese correo"
+        name="email"
+        onChange={this.handleChange}
+      />
+      <hr />
+      <Label for="">Contraseña</Label>
+      <Input
+        type="password"
+        placeholder="ingrese contraseña"
+        name="password"
+        onChange={this.handleChange}
+      />
+      <br />
+      <Button type="submit" onClick={() => this.iniciarSesion()}>Ingresar</Button>
+      <H2>
+      </H2>
+      <P>
+        ¿Aun no tienes una cuenta?<Link to="/registro">Inscribirse</Link>
+      </P>
+    </Form>
+  );
+}
 }
 
+const Button = styled.button`
+  background-color: purple;
+  margin: auto;
+  display: block;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 5px;
+`
 
 const Form = styled.div`
   background-color: black;
