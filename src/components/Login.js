@@ -1,30 +1,82 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Component } from 'react';
+import axios from "axios";
+import { userUrl } from "../helpers/UserData";
 
-const Login = () => {
-  return (
-    <Form>
-      <Img src="./Logo.svg" alt="" />
-      <br />
-      <br />
-      <H3>Iniciar sesion</H3> <br />
-      <Link to="">
-        <Img src="./Buttons.svg" alt="" />
-      </Link>
-      <hr />
-      <Label for="">correo electronico</Label>
-      <Input type="text" placeholder="ingrese correo" />
-      <br />
-      <H2>
-        <Link to="">¿Se te olvidò tu contraseña?</Link>
-      </H2>
-      <P>
-        ¿Aun no tienes una cuenta?<Link to="">Inscribirse</Link>
-      </P>
-    </Form>
-  );
-};
+export default class Login extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            form: {
+                email: '',
+                password: ''
+            }
+        }
+    }
+    handleChange = (e) => {
+        this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        })
+        console.log(this.state.form);
+    }
+
+    iniciarSesion = () => {
+        axios.get(userUrl, { params: { email: this.state.form.email, password: this.state.form.password } })
+        .then(response=>{
+          console.log(response);
+        })
+        .then(response=>{
+            if(response.length>0){
+
+            }else{
+                alert("El usuario o contraseña no son correctos")
+            }
+        })
+        .catch(error=>{
+          console.log(error);
+        })
+      }
+
+    render() {
+        return (
+            <Form >
+                <Img src="./Logo.svg" alt="" />
+                <br />
+                <br />
+                <H3>Iniciar sesion</H3> <br />
+                <Label for="">Correo Electronico</Label>
+                <Input
+                    type="email"
+                    placeholder="ingrese correo"
+                    name="email"
+                    onChange={this.handleChange}
+                />
+                <hr />
+                <Label for="">Contraseña</Label>
+                <Input
+                    type="password"
+                    placeholder="ingrese contraseña"
+                    name="password"
+                    onChange={this.handleChange}
+                />
+                <br />
+                <button type="submit" onClick={()=>this.iniciarSesion()}>Ingresar</button>
+                <H2>
+                </H2>
+                <P>
+                    ¿Aun no tienes una cuenta?<Link to="/registro">Inscribirse</Link>
+                </P>
+            </Form>
+        );
+    }
+}
+
 
 const Form = styled.div`
   background-color: black;
@@ -69,4 +121,4 @@ const P = styled.p`
   text-align: center;
 `;
 
-export default Login;
+
