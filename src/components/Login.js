@@ -34,9 +34,13 @@ export default class Login extends Component {
         if (response.data.length > 0) { ///////////////=> pero aca es undefined
           this.setState({peticion: response})
           Swal.fire({
-            icon: 'error',     
+            icon: 'Su',     
             text: 'Complete los Campos',
-          })
+          }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "./home"
+            }
+        })
         } else {
           Swal.fire('Usuario o Contraseña incorrecta')     }
       })
