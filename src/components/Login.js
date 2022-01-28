@@ -34,8 +34,7 @@ export default class Login extends Component {
         if (response.data.length > 0) { ///////////////=> pero aca es undefined
           this.setState({peticion: response})
           Swal.fire({
-            icon: 'error',
-            
+            icon: 'error',     
             text: 'Complete los Campos',
           })
         } else {
