@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 import { userUrl } from '../helpers/UserData';
 
 export default class Registro extends Component {
@@ -34,10 +34,17 @@ export default class Registro extends Component {
 
   envioData = () => {
     axios.post(userUrl, this.state.form)
-      .then(response => { 
-        console.log(response.data) 
-        alert("Te has registrado con exito, ya puedes hacer el test en eboton test")
-     })
+      .then(response => {
+        console.log(response.data)
+        Swal.fire({
+          icon: 'successs',
+          text: 'Te has registardo con éxito',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/"
+          }
+        })
+      })
       .catch(error => console.log(error))
   }
 
@@ -62,8 +69,8 @@ export default class Registro extends Component {
             name="password"
             placeholder="Contraseña"
             onChange={this.handleChange}
-          /> 
-            <Button type="submit">Registrarme</Button>
+          />
+          <Button type="submit">Registrarme</Button>
         </form>
       </Form>
     );
