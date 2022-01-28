@@ -50,6 +50,7 @@ export default class Registro extends Component {
 
   render() {
     return (
+      <Div>
       <Form>
         <form onSubmit={this.handleSubmit}>
           <H2>Formulario de Registro</H2>
@@ -73,29 +74,37 @@ export default class Registro extends Component {
           <Button type="submit">Registrarme</Button>
         </form>
       </Form>
+      </Div>
     );
   }
 }
 
 const Form = styled.div`
-  background-color: black;
-  width: 400px;
-  height: 625px;
-  color: white;
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  box-sizing: border-box;
-  padding: 50px 50px;
-  border-radius: 20px;
+ padding-top: 10px;
+	font-size: 14px;
+	margin-top: 30px;
 
 `
 
+const Div = styled.div`
+   height:100%;
+	display: block;
+  margin:auto;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+  color:white;
+  width:200px;
+  padding:100px;
+border-radius:20px;
+`
+
 const Label = styled.label`
-  margin: 0;
+ margin: auto;
   padding: 0;
   display: block;
+  text-align:center;
+  margin-top:10px;
 `;
 
 const Input = styled.input`
@@ -110,13 +119,13 @@ const H2 = styled.h2`
   text-align: center;
 `;
 const Button = styled.button`
-   margin-top: 2rem;
-  background: #6b47dc;
-  border-radius: 16px;
-  padding: 16px;
-  width: 360px;
-  height: 42px;
-  border: none;
-  color: white;
+  background-color: #6B47DC;
+  margin: auto;
+  display: block;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  width:200px;
 `
 
