@@ -4,6 +4,7 @@ const Home = () => {
     return (
         <div>
             <h1>Daily Bits</h1>
+            Link to="/html"
         </div>
     );
 };
