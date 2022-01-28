@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { userUrl } from '../helpers/UserData';
 
@@ -33,14 +34,17 @@ export default class Registro extends Component {
 
   envioData = () => {
     axios.post(userUrl, this.state.form)
-      .then(response => console.log(response.data))
+      .then(response => { 
+        console.log(response.data) 
+        alert("Te has registrado con exito, ya puedes hacer el test en eboton test")
+     })
       .catch(error => console.log(error))
   }
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
+      <Form>
+        <form onSubmit={this.handleSubmit}>
           <H2>Formulario de Registro</H2>
           <br /><br />
           <Label >Email</Label>
@@ -58,10 +62,10 @@ export default class Registro extends Component {
             name="password"
             placeholder="Contraseña"
             onChange={this.handleChange}
-          />
-          <Button type="submit">Registrarme</Button>
-        </Form>
-      </div>
+          /> 
+            <Button type="submit">Registrarme</Button>
+        </form>
+      </Form>
     );
   }
 }
@@ -99,11 +103,13 @@ const H2 = styled.h2`
   text-align: center;
 `;
 const Button = styled.button`
-  background-color: tomato;
-  margin: auto;
-  display: block;
-  margin-top: 50px;
-  padding: 10px;
-  border-radius: 5px;
+   margin-top: 2rem;
+  background: #6b47dc;
+  border-radius: 16px;
+  padding: 16px;
+  width: 360px;
+  height: 42px;
+  border: none;
+  color: white;
 `
 

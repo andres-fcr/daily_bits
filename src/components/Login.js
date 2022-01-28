@@ -32,8 +32,7 @@ export default class Login extends Component {
       .then(response => {
         console.log(response.data.length); //////=> Arroja 1 
         if (response.data.length > 0) { ///////////////=> pero aca es undefined
-          this.setState({peticion: response})
-          alert("inicio sesion")
+          alert("Iniciaste sesión con exito")
         } else {
           alert("El usuario o contraseña no son correctos")
         }
@@ -42,7 +41,6 @@ export default class Login extends Component {
         console.log(error);
       })
     // this.alerta()
-    console.log(this.state.peticion);
   }
 
   // alerta = () => {
@@ -90,12 +88,14 @@ export default class Login extends Component {
 }
 
 const Button = styled.button`
-  background-color: purple;
-  margin: auto;
-  display: block;
-  margin-top: 50px;
-  padding: 10px;
-  border-radius: 5px;
+  margin-top: 2rem;
+  background: #6b47dc;
+  border-radius: 16px;
+  padding: 16px;
+  width: 360px;
+  height: 42px;
+  border: none;
+  color: white;
 `
 
 const Form = styled.div`
