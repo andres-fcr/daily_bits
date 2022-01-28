@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AppRoutes from "../routers/AppRoutes";
+import AppRoutes from "./routers/AppRoutes";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <React.StrictMode>
