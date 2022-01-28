@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getData } from "../helpers/getData";
@@ -17,70 +18,97 @@ const Preguntas = () => {
       correct: "",
     },
     puntuacion: 0,
-    preguntaSeleccionada: "",
+    respuestaSeleccionada: "",
   });
 
-  const { numeroPregunta, preguntas, puntuacion, preguntaSeleccionada } = pregunta;
+  const { numeroPregunta, preguntas, puntuacion, respuestaSeleccionada } = pregunta;
 
   const traerDatos = async () => {
     const datos = await getData(endpoint);
     setData(datos);
   };
 
+  const posicionPregunta = data[pregunta.numeroPregunta];
   const traerPregunta = () => {
-    const posicionPregunta = data[pregunta.numeroPregunta];
+    if (posicionPregunta === undefined) {
+      console.log("espera");
+    } else {
+      setPregunta({
+        ...pregunta,
+        preguntas: {
+          question: posicionPregunta.question,
+          a: posicionPregunta.a,
+          b: posicionPregunta.b,
+          c: posicionPregunta.c,
+          d: posicionPregunta.d,
+          correct: posicionPregunta.correct,
+        },
+      });
+    }
+  };
+
+  const handleChange = (e) => {
     setPregunta({
       ...pregunta,
-      preguntas: {
-        question: posicionPregunta.question,
-        a: posicionPregunta.a,
-        b: posicionPregunta.b,
-        c: posicionPregunta.c,
-        d: posicionPregunta.d,
-        correct: posicionPregunta.correct,
-      },
+      respuestaSeleccionada: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (respuestaSeleccionada === preguntas.correct) {
+      setPregunta({
+        ...pregunta,
+        puntuacion: puntuacion + 1,
+      });
+    }
+    e.target.reset();
   };
-  console.log(pregunta);
+
+  const subirPosicion = () => {
+    setPregunta({
+      ...pregunta,
+      numeroPregunta: numeroPregunta + 1,
+    });
+  };
   useEffect(() => {
     traerDatos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    traerPregunta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [posicionPregunta]);
+
+  console.log(preguntas.correct);
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <img src="./caracters.svg" alt=""></img>
-      <P>¿?</P> <br />
+      <P>{preguntas.question}</P> <br />
       <br />
       <br />
-      <label htmlFor=""></label>
-      <input type="radio" value="" />
+      <label htmlFor="">{preguntas.a}</label>
+      <input type="radio" value={preguntas.a} name="preguntas" onChange={handleChange} />
       <br />
       <br />
+      <label htmlFor="">{preguntas.b}</label>
+      <input type="radio" value={preguntas.b} name="preguntas" onChange={handleChange} />
       <br />
       <br />
-      <label htmlFor=""></label>
-      <input type="radio" value="" />
+      <label htmlFor="">{preguntas.c}</label>
+      <input type="radio" value={preguntas.c} name="preguntas" onChange={handleChange} />
       <br />
       <br />
+      <label htmlFor="">{preguntas.d}</label>
+      <input type="radio" value={preguntas.d} name="preguntas" onChange={handleChange} />
+      <Button type="submit" onClick={() => subirPosicion()}>
+        Comprobar
+      </Button>
       <br />
       <br />
-      <label htmlFor=""></label>
-      <input type="radio" value="" />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <label htmlFor=""></label>
-      <input type="radio" value="" />
-      <a href="">
-        <img src="./Buttoncomprobar.svg" alt="" />
-      </a>
+      <label htmlFor="">Puntuación</label>
+      <input type="text" placeholder={puntuacion} />
     </Form>
   );
 };
@@ -101,4 +129,14 @@ const P = styled.p`
   float: right;
 `;
 
+const Button = styled.button`
+  margin-top: 2rem;
+  background: #6b47dc;
+  border-radius: 16px;
+  padding: 16px;
+  width: 360px;
+  height: 42px;
+  border: none;
+  color: white;
+`;
 export default Preguntas;
