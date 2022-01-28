@@ -11,8 +11,8 @@ export default class Login extends Component {
     super();
     this.state = {
       form: {
-        email: 'a@gmail.com',
-        password: 'asdad'
+        email: 'andres@gmail.com',
+        password: '123'
       },
       peticion: {}
     }
@@ -30,11 +30,9 @@ export default class Login extends Component {
   iniciarSesion = () => {
     axios.get(userUrl, { params: { email: this.state.form.email, password: this.state.form.password } })
       .then(response => {
-        console.log(response.data.length);
-        // this.setState({peticion: response.data})
-      })
-      .then(response=>{
-        if (response.data.length < 1) {
+        console.log(response.data.length); //////=> Arroja 1 
+        if (response.data.length > 0) { ///////////////=> pero aca es undefined
+          this.setState({peticion: response})
           alert("inicio sesion")
         } else {
           alert("El usuario o contraseña no son correctos")
@@ -43,51 +41,52 @@ export default class Login extends Component {
       .catch(error => {
         console.log(error);
       })
-      this.alerta()
-  }
-
-  alerta = () => {
-    if (this.state.peticion.length < 1) {
-      alert("inicio sesion")
-    } else {
-      alert("El usuario o contraseña no son correctos")
-    }
+    // this.alerta()
     console.log(this.state.peticion);
   }
 
+  // alerta = () => {
+  //   if (this.state.peticion.length < 1) {
+  //     alert("inicio sesion")
+  //   } else {
+  //     alert("El usuario o contraseña no son correctos")
+  //   }
+  //   console.log(this.state.peticion);
+  // }
 
-render() {
-  return (
-    <Form >
-      <Img src="./Logo.svg" alt="" />
-      <br />
-      <br />
-      <H3>Iniciar sesion</H3> <br />
-      <Label for="">Correo Electronico</Label>
-      <Input
-        type="email"
-        placeholder="ingrese correo"
-        name="email"
-        onChange={this.handleChange}
-      />
-      <hr />
-      <Label for="">Contraseña</Label>
-      <Input
-        type="password"
-        placeholder="ingrese contraseña"
-        name="password"
-        onChange={this.handleChange}
-      />
-      <br />
-      <Button type="submit" onClick={() => this.iniciarSesion()}>Ingresar</Button>
-      <H2>
-      </H2>
-      <P>
-        ¿Aun no tienes una cuenta?<Link to="/registro">Inscribirse</Link>
-      </P>
-    </Form>
-  );
-}
+
+  render() {
+    return (
+      <Form >
+        <Img src="./Logo.svg" alt="" />
+        <br />
+        <br />
+        <H3>Iniciar sesion</H3> <br />
+        <Label for="">Correo Electronico</Label>
+        <Input
+          type="email"
+          placeholder="ingrese correo"
+          name="email"
+          onChange={this.handleChange}
+        />
+        <hr />
+        <Label for="">Contraseña</Label>
+        <Input
+          type="password"
+          placeholder="ingrese contraseña"
+          name="password"
+          onChange={this.handleChange}
+        />
+        <br />
+        <Button type="submit" onClick={() => this.iniciarSesion()}>Ingresar</Button>
+        <H2>
+        </H2>
+        <P>
+          ¿Aun no tienes una cuenta?<Link to="/registro">Inscribirse</Link>
+        </P>
+      </Form>
+    );
+  }
 }
 
 const Button = styled.button`
