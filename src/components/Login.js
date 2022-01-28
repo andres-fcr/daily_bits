@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Component } from 'react';
 import axios from "axios";
 import { userUrl } from "../helpers/UserData";
-
+import Swal from 'sweetalert2'
 export default class Login extends Component {
 
   constructor() {
@@ -33,10 +33,13 @@ export default class Login extends Component {
         console.log(response.data.length); //////=> Arroja 1 
         if (response.data.length > 0) { ///////////////=> pero aca es undefined
           this.setState({peticion: response})
-          alert("inicio sesion")
+          Swal.fire({
+            icon: 'error',
+            
+            text: 'Complete los Campos',
+          })
         } else {
-          alert("El usuario o contraseña no son correctos")
-        }
+          Swal.fire('Usuario o Contraseña incorrecta')     }
       })
       .catch(error => {
         console.log(error);
