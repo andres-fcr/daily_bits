@@ -30,32 +30,24 @@ export default class Login extends Component {
   iniciarSesion = () => {
     axios.get(userUrl, { params: { email: this.state.form.email, password: this.state.form.password } })
       .then(response => {
-        console.log(response.data.length); //////=> Arroja 1 
-        if (response.data.length > 0) { ///////////////=> pero aca es undefined
-          this.setState({peticion: response})
+        console.log(response.data.length); 
+        if (response.data.length > 0) { 
           Swal.fire({
-            icon: 'error',
-            
-            text: 'Complete los Campos',
+            icon: 'success',
+            text: 'Bienvenido a Daily Bits',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "./home"
+            }
           })
         } else {
-          Swal.fire('Usuario o Contraseña incorrecta')     }
+          Swal.fire('Usuario o Contraseña incorrecta')
+        }
       })
       .catch(error => {
         console.log(error);
       })
-    // this.alerta()
   }
-
-  // alerta = () => {
-  //   if (this.state.peticion.length < 1) {
-  //     alert("inicio sesion")
-  //   } else {
-  //     alert("El usuario o contraseña no son correctos")
-  //   }
-  //   console.log(this.state.peticion);
-  // }
-
 
   render() {
     return (
