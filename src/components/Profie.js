@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 const Profile = () => {
   return  <Form>
 
@@ -13,9 +14,9 @@ const Profile = () => {
     <a href="http://">cerrar sesiòn</a>
 </Section>
 <Div>
-    <a href=""><img src="./Component 1.svg" alt=""/></a>
-    <a href=""><img src="./Component 1 (2).svg" alt=""/></a>
-    <a href=""><img src="./Component 2.svg" alt=""/></a>
+    <Link href=""><img src="./Component 1.svg" alt=""/></a>
+    <Link href=""><img src="./Component 1 (2).svg" alt=""/></a>
+    <Link href=""><img src="./Component 2.svg" alt=""/></a>
 </Div>
 </Form>;
 

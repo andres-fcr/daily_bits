@@ -11,8 +11,8 @@ export default class Login extends Component {
     super();
     this.state = {
       form: {
-        email: 'andres@gmail.com',
-        password: '123'
+        email: '',
+        password: ''
       },
       peticion: {}
     }
